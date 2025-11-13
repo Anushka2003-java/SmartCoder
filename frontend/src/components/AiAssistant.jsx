@@ -1,28 +1,22 @@
 import React, { useState } from "react";
-import { askAI } from "../services/api"; // ✅ correct import
+import { sendMessageToAI } from "../services/api";
 
 export default function AiAssistant() {
-  const [chat, setChat] = useState([
-    { sender: "bot", text: "Hi! Ask me anything 😊" },
-  ]);
+  const [chat, setChat] = useState([{ sender: "bot", text: "Hi! Ask me anything 😊" }]);
   const [input, setInput] = useState("");
 
   const handleSend = async () => {
     if (!input.trim()) return;
 
-    const newMsg = { sender: "user", text: input };
-    setChat((prev) => [...prev, newMsg]);
+    const userMsg = { sender: "user", text: input };
+    setChat((prev) => [...prev, userMsg]);
 
     try {
-      const response = await askAI(input); // ✅ using askAI instead of sendMessageToAI
-      const botReply = response.reply || "⚠️ AI is offline right now.";
-
+      const response = await sendMessageToAI(input);
+      const botReply = response.reply || "⚠️ AI service error, try again later!";
       setChat((prev) => [...prev, { sender: "bot", text: botReply }]);
-    } catch (error) {
-      setChat((prev) => [
-        ...prev,
-        { sender: "bot", text: "⚠️ Error contacting AI service!" },
-      ]);
+    } catch {
+      setChat((prev) => [...prev, { sender: "bot", text: "⚠️ AI service error!" }]);
     }
 
     setInput("");

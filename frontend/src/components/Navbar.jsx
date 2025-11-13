@@ -1,4 +1,6 @@
-export default function Navbar({ onLoginClick, userName, onLogout }) {
+import React from "react";
+
+export default function Navbar() {
   return (
     <nav>
       <div className="logo">SmartCoder</div>
@@ -9,16 +11,7 @@ export default function Navbar({ onLoginClick, userName, onLogout }) {
         <li><a href="#createQuiz">Create Quiz</a></li>
         <li><a href="#aiAssistant">AI Assistant</a></li>
         <li><a href="#about">About</a></li>
-        <li id="authSection" style={{ listStyle: "none" }}>
-          {userName ? (
-            <>
-              <span className="welcome">Welcome, {userName}!</span>
-              <button className="login-btn" onClick={onLogout}>Logout</button>
-            </>
-          ) : (
-            <button className="login-btn" id="loginBtn" onClick={onLoginClick}>Login</button>
-          )}
-        </li>
+        <li id="authSection"><button id="loginBtn" className="login-btn">Login</button></li>
       </ul>
     </nav>
   );

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ExamRunner from "../components/ExamRunner";
+import ExamRunner from "./ExamRunner";
 
 export default function ExamsSection() {
   const subjects = [
@@ -17,31 +17,16 @@ export default function ExamsSection() {
 
   const [activeExam, setActiveExam] = useState(null);
 
-  const handleSubjectClick = (subject) => {
-    setActiveExam(subject); // ✅ Switch to exam mode
-  };
-
-  // ✅ If exam active → show exam runner screen
   if (activeExam) {
-    return (
-      <ExamRunner
-        subject={activeExam}
-        onExit={() => setActiveExam(null)}
-      />
-    );
+    return <ExamRunner subject={activeExam} onExit={() => setActiveExam(null)} />;
   }
 
   return (
     <section className="exams-section">
       <h2 className="exams-title">Available Exams</h2>
-
       <div className="exam-grid">
         {subjects.map((sub, index) => (
-          <div
-            key={index}
-            className="exam-card"
-            onClick={() => handleSubjectClick(sub)}
-          >
+          <div key={index} className="exam-card" onClick={() => setActiveExam(sub)}>
             {sub}
           </div>
         ))}

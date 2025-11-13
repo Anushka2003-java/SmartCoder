@@ -1,16 +1,18 @@
 const API_URL = "http://localhost:5000/api";
 
+// ✅ Chatbot message sending
 export const sendMessageToAI = async (message) => {
-  const res = await fetch("http://localhost:5000/api/ai/chat", {
+  const res = await fetch(`${API_URL}/ai/chat`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ message }),
   });
-
-  return await res.json();
+  return res.json();
 };
 
-// ✅ Keep fetchQuestions empty for now so it doesn't break UI
+// ✅ Fetch questions
 export const fetchQuestions = async (subject) => {
-  return []; // We'll fix later
+  const res = await fetch(`${API_URL}/questions/${encodeURIComponent(subject)}`);
+  const data = await res.json();
+  return data.questions || [];
 };

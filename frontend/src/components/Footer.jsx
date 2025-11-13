@@ -1,7 +1,5 @@
+import React from "react";
+
 export default function Footer() {
-  return (
-    <footer className="footer">
-      © 2025 SmartCoderLite | All Rights Reserved
-    </footer>
-  );
+  return <footer style={{ padding: 24, textAlign: "center" }}>Built for Learner by Learner</footer>;
 }
